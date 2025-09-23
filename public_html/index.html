@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Visor de Archivos</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* evita scroll de toda la página */
+        }
+
+        header {
+            padding: 10px 20px;
+            background-color: #f4f4f4;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            margin: 5px 0;
+        }
+
+        /* Contenedor principal ocupa el resto de la pantalla */
+        .contenedor {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            height: calc(100vh - 70px); /* ajusta según altura del header */
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Menú lateral scrollable */
+        #menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto; /* solo el menú hace scroll */
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: #0066cc;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+        }
+
+        #menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Panel de contenido */
+        #contenido {
+            border: 1px solid #ccc;
+            padding: 15px;
+            background-color: #fafafa;
+            white-space: pre-wrap;
+            overflow-y: auto; /* scroll interno solo si el archivo es muy largo */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Nicolas Cid - Libreta Nº 83654</h1>
+        <h2>Menú de Archivos</h2>
+    </header>
+
+    <div class="contenedor">
+        <nav id="menu"></nav>
+        <div id="contenido">Selecciona un archivo del menú para visualizarlo aquí.</div>
+    </div>
+
+    <script>
+        fetch("/archivos")
+            .then(res => res.json())
+            .then(archivos => {
+                const menu = document.getElementById("menu");
+                archivos.forEach(nombre => {
+                    const link = document.createElement("a");
+                    link.href = "#";
+                    link.textContent = nombre;
+                    link.onclick = () => cargarArchivo(nombre);
+                    menu.appendChild(link);
+                });
+            });
+
+        function cargarArchivo(nombre) {
+            fetch(nombre)
+                .then(res => res.text())
+                .then(texto => {
+                    document.getElementById("contenido").textContent = texto;
+                });
+        }
+    </script>
+</body>
+</html>
