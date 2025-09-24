@@ -9,7 +9,7 @@
             padding: 0;
             height: 100%;
             font-family: Arial, sans-serif;
-            overflow: hidden; /* evita scroll de toda la página */
+            overflow: hidden;
         }
 
         header {
@@ -22,24 +22,22 @@
             margin: 5px 0;
         }
 
-        /* Contenedor principal ocupa el resto de la pantalla */
         .contenedor {
             display: grid;
             grid-template-columns: 200px 1fr;
-            height: calc(100vh - 70px); /* ajusta según altura del header */
+            height: calc(100vh - 70px);
             gap: 20px;
             padding: 20px;
             box-sizing: border-box;
         }
 
-        /* Menú lateral scrollable */
         #menu {
             display: flex;
             flex-direction: column;
             gap: 10px;
             border: 1px solid #ccc;
             padding: 10px;
-            overflow-y: auto; /* solo el menú hace scroll */
+            overflow-y: auto;
         }
 
         #menu a {
@@ -55,13 +53,12 @@
             background-color: #f0f0f0;
         }
 
-        /* Panel de contenido */
         #contenido {
             border: 1px solid #ccc;
             padding: 15px;
             background-color: #fafafa;
             white-space: pre-wrap;
-            overflow-y: auto; /* scroll interno solo si el archivo es muy largo */
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -77,9 +74,11 @@
     </div>
 
     <script>
-        fetch("/archivos")
-            .then(res => res.json())
-            .then(archivos => {
+        // Leer el archivo nombres_archivos.txt y generar el menú
+        fetch("nombres_archivos.txt")
+            .then(res => res.text())
+            .then(texto => {
+                const archivos = texto.split(/\r?\n/).filter(l => l.trim() !== "");
                 const menu = document.getElementById("menu");
                 archivos.forEach(nombre => {
                     const link = document.createElement("a");
@@ -88,6 +87,10 @@
                     link.onclick = () => cargarArchivo(nombre);
                     menu.appendChild(link);
                 });
+            })
+            .catch(err => {
+                document.getElementById("contenido").textContent = 
+                    "Error al cargar nombres_archivos.txt: " + err;
             });
 
         function cargarArchivo(nombre) {
@@ -95,6 +98,10 @@
                 .then(res => res.text())
                 .then(texto => {
                     document.getElementById("contenido").textContent = texto;
+                })
+                .catch(err => {
+                    document.getElementById("contenido").textContent = 
+                        "Error al cargar el archivo: " + err;
                 });
         }
     </script>
