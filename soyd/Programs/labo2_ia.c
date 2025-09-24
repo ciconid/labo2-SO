@@ -3,11 +3,10 @@
 #include <unistd.h>
 #include <string.h> // para usar strcmp()
 
-
 pid_t pid;
 
-void reemplazar(char* nom_programa, char* archivo) {
-	char* args[] = {nom_programa, archivo, NULL};
+void reemplazar(char *nom_programa, char *archivo) {
+	char *args[] = {nom_programa, archivo, NULL};
 
 	char ruta[256];
 	strcpy(ruta, "./");
@@ -19,7 +18,7 @@ void reemplazar(char* nom_programa, char* archivo) {
 	exit(EXIT_FAILURE);
 }
 
-void comparar_y_fork(char* nom_programa, char* archivo) {
+void comparar_y_fork(char *nom_programa, char *archivo) {
 	pid = fork();
 	if (pid < 0) {
 		perror(nom_programa);
@@ -28,7 +27,7 @@ void comparar_y_fork(char* nom_programa, char* archivo) {
 	}
 }
 
-bool validar_archivo(char* archivo) {
+bool validar_archivo(char *archivo) {
 	int l = strlen(archivo);
 	if (l < 5 || archivo[l - 1] != 't' || archivo[l - 2] != 'x' || archivo[l - 3] != 't' ||
 			archivo[l - 4] != '.') {
@@ -41,7 +40,7 @@ bool validar_archivo(char* archivo) {
 }
 		
 
-void crear_proceso_secundario(char* cmd, char* archivo) {
+void crear_proceso_secundario(char *cmd, char *archivo) {
 	
 	if (strcmp(cmd, "tokenizar") == 0 ){
 		// tokenizador
@@ -79,9 +78,8 @@ int main(void) {
 		printf("prompt> "); 
 		fgets(linea, sizeof(linea), stdin);
 		
-		if (sscanf(linea, "%19s %49s %1s", comando, archivo) != 2 ) { 
+		if (sscanf(linea, "%19s %49s %1s", comando, archivo, extra) != 2 ) { 
 			if (strcmp(comando,"exit") == 0 ) {
-				//printf("## Saliendo de main ## \n");
 				exit(EXIT_SUCCESS);
 			}
 
@@ -92,11 +90,9 @@ int main(void) {
 			} 
 		}
 
-		//sleep(1);
-		//printf("Shamouna \n");
 
 	}
 
 
-	exit(EXIT_SUCCESS); // ta medio defensivo esto
+	exit(EXIT_SUCCESS); 
 }

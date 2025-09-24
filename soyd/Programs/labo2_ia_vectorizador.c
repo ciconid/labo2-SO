@@ -31,7 +31,7 @@ void init_array_int(array_int *array) {
 }
 
 // agregar un string al array dinamico
-void insertArray(array_string* array, const char* string) {
+void insertArray(array_string *array, const char *string) {
 	if (array->usados == array->capacidad ) {
 		// aumentar capacidad
 		array->capacidad += BLOQUE;
@@ -60,13 +60,11 @@ void insert_array_int(array_int *array, int num) {
 	}
 
 	// agregar al array
-	//array->datos[array->usados] = malloc(strlen(string) + 1);
-	//strcpy(array->datos[array->usados], string);
 	array->datos[array->usados] = num;
 	array->usados++;
 }
 
-int contains(array_string* array, const char* string) {
+int contains(array_string *array, const char *string) {
 	// si encuentra la palabra, devuelve su posicion, sino -1
 	for (int i = 0; i < array->usados; i++) {
 		if (strcmp(array->datos[i], string) == 0) {
@@ -94,7 +92,7 @@ void imprimir_array_int(array_int *array) {
 }
 
 // liberar memoria
-void free_array_string(array_string* array) {
+void free_array_string(array_string *array) {
 	for (int i = 0; i < array->usados; i++) {
 		free(array->datos[i]);
 	}
@@ -102,20 +100,15 @@ void free_array_string(array_string* array) {
 	array->datos = NULL;
 }
 void free_array_int(array_int *array) {
-	//for (int i = 0; i < array->usados; i++) {
-	//	free(array->datos[i]);
-	//}
 	free(array->datos);
 	array->datos = NULL;
 }
 
 //toLower y limpiar especiales
-void limpiar_y_to_lower(char* palabra) {
-	int i,j= 0;
+void limpiar_y_to_lower(char *palabra) {
+	int j= 0;
 	for (int i = 0; palabra[i] != '\0'; i++) {
 		if (isalnum((unsigned char) palabra[i]) ) {
-			//printf("palabra[i]=%c \n", palabra[i]);
-
 			palabra[j] = tolower(palabra[i]);
 			j++;
 		} 
@@ -123,9 +116,7 @@ void limpiar_y_to_lower(char* palabra) {
 	palabra[j] = '\0';
 }
 
-int main(int arcg, char* argv[]) {
-	//printf("Vectorizando... \n");
-	//sleep(60);
+int main(int arcg, char *argv[]) {
 
 	// abrir archivo
 	char *path_ruta_archivo = "./data/";
@@ -133,7 +124,7 @@ int main(int arcg, char* argv[]) {
 	char ruta_archivo[strlen(path_ruta_archivo) + strlen(nombre_archivo) + 1];				 strcpy(ruta_archivo, path_ruta_archivo);
 	strcat(ruta_archivo, nombre_archivo);
 
-	FILE* archivo = fopen(ruta_archivo, "r");
+	FILE *archivo = fopen(ruta_archivo, "r");
  	if (archivo == NULL) {
 		perror("Error al abrir el archivo");
 		exit(EXIT_FAILURE);
@@ -149,7 +140,6 @@ int main(int arcg, char* argv[]) {
 	// leer archivo 
 	char palabra[100];
 	while (fscanf(archivo, "%99s", palabra) == 1 ) {
-		//printf("%s \n",palabra);
 		limpiar_y_to_lower(palabra);
 
 		// empezar a poblar vocab y vector
@@ -202,26 +192,12 @@ int main(int arcg, char* argv[]) {
 	fprintf(salida, "] \n");
 
 
-
-
-
-
-	// imprimir arrays PARA TESTEAR NOMAS
-	//printf("Vocabulario: \n");
-	//imprimir_array_string(&vocabulario);
-	//printf("Vector: \n");
-	//imprimir_array_int(&vector);
-	//printf("------------ \n");
-
-
-
 	// cerrar archivos abiertos y liberar memoria de arrays
 	free_array_string(&vocabulario);
 	free_array_int(&vector);
 	fclose(archivo);
 	fclose(salida);
 
-	//printf("** saliendo de vectorizador ** \n");
 	exit(EXIT_SUCCESS);
 }
 

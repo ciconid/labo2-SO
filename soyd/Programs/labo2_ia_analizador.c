@@ -23,12 +23,10 @@ char *negativas[5] = {
 
 
 //toLower y limpiar especiales
-void limpiar_y_to_lower(char* palabra) {
-	int i,j= 0;
+void limpiar_y_to_lower(char *palabra) {
+	int j= 0;
 	for (int i = 0; palabra[i] != '\0'; i++) {
 		if (isalnum((unsigned char) palabra[i]) ) {
-			//printf("palabra[i]=%c \n", palabra[i]);
-
 			palabra[j] = tolower(palabra[i]);
 			j++;
 		} 
@@ -36,7 +34,7 @@ void limpiar_y_to_lower(char* palabra) {
 	palabra[j] = '\0';
 }
 
-int contains(char **array, const char* string) {
+int contains(char **array, const char *string) {
 	// si encuentra la palabra, devuelve su posicion, sino -1
 	for (int i = 0; i < CANT_PALABRAS; i++) {
 		if (strcmp(array[i], string) == 0) {
@@ -48,9 +46,7 @@ int contains(char **array, const char* string) {
 }
 
 int main(int argc, char *argv[]) {
-	//printf("Analizando... \n");
-	//sleep(60);
-
+	
 	// abrir archivo
 	char *path_archivo = "./data/";
 	char *nombre_archivo = argv[1];
@@ -68,18 +64,14 @@ int main(int argc, char *argv[]) {
 	int resultado_numerico = 0;
 	char palabra[100];
 	while (fscanf(archivo, "%99s", palabra) == 1 ) {
-		//printf("%s \n", palabra);
 		limpiar_y_to_lower(palabra);
 
 		if (contains(positivas, palabra) >= 0) {
-			// está en el array
 			resultado_numerico++;
 		}
 		if (contains(negativas, palabra) >= 0) {
-			// está en el array
 			resultado_numerico--;
 		}
-		
 
 	}
 
@@ -111,19 +103,9 @@ int main(int argc, char *argv[]) {
 	fprintf(salida, resultado);
 
 
-
-
-
-
-
-
-
 	// cerrar archivos
 	fclose(salida);
 	fclose(archivo);
 
-
-
-	//printf("** saliendo de analizador **\n");
 	exit(EXIT_SUCCESS);
 }
