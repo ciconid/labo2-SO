@@ -1,0 +1,38 @@
+# Ejercicio 2
+Comandos de labo_ia:
+    tokenizar <nombre_archivo>
+    vectorizar <nombre_archivo>
+    analizar <nombre_archivo>
+    exit
+    
+El script rechaza cualquier tipo de archivo que no sea *.txt
+
+# Ejercicio 3
+
+Se utilizó ChatGPT y se le ingresaron los siguientes prompts:
+
+1)
+desarrollar una página web dinámica en un archivo denominado ”index.html” 
+que permita a los usuarios seleccionar y visualizar diferentes archivos de texto mediante un 
+menú interactivo. La página debe incluir, al menos, un encabezado con tu nombre y número de 
+libreta, otro encabezado con el texto "Menú de Archivos", y un menú de navegación con 
+enlaces que permitan elegir el archivo de texto a mostrar.
+
+2)
+puede ser que en vez de estar hardcodeados, el script busque en el directorio los archivos .txt?
+
+3)
+tengo un archivo que se llama nombres_archivos.txt en el mismo directorio que index.html. Quiero que el script lea cada uno de los nombres y los agregue
+
+4)
+Me gusta este codigo!! Quisiera que los archivos esten en una lista vertical, y que el contenido de los mismos se vea en un panel a la derecha en vez de abajo
+
+5)
+hermoso!! se puede hacer que la lista de archivos sea scrolleable pero que el panel de lectura quede fijo a la derecha?
+
+
+Con esta comunicación se generó index.html.
+El archivo nombres_archivos.txt es generado por el script labo2_ej4.sh.
+
+
+

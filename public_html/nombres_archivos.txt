@@ -1,5 +1,3 @@
-hello.txt
-hola.txt
 neg.txt
 neut.txt
 pos.txt
